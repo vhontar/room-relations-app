@@ -1,4 +1,4 @@
-package com.easycoding.learningroomrelations.presentation.musiclibraries
+package com.easycoding.learningroomrelations.presentation.musiclibraries.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,8 @@ class MusicLibrariesAdapter(
     private val listener: MusicLibraryClickListener? = null,
     private val hideButtons: Boolean = false
 ): ListAdapter<MusicLibrary, MusicLibraryViewHolder>(UserDiffUtilItemCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicLibraryViewHolder = MusicLibraryViewHolder.from(parent, listener, hideButtons)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicLibraryViewHolder =
+        MusicLibraryViewHolder.from(parent, listener, hideButtons)
     override fun onBindViewHolder(holder: MusicLibraryViewHolder, position: Int) = holder.bind(getItem(position))
 }
 

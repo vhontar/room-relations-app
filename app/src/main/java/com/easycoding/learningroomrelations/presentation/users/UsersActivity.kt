@@ -10,6 +10,8 @@ import com.easycoding.learningroomrelations.R
 import com.easycoding.learningroomrelations.databinding.ActivityUsersBinding
 import com.easycoding.learningroomrelations.business.models.User
 import com.easycoding.learningroomrelations.presentation.musiclibraries.MusicLibrariesActivity
+import com.easycoding.learningroomrelations.presentation.users.adapter.UserClickListener
+import com.easycoding.learningroomrelations.presentation.users.adapter.UsersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

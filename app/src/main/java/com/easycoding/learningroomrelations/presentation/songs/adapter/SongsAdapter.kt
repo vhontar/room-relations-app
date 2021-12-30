@@ -1,4 +1,4 @@
-package com.easycoding.learningroomrelations.presentation.songs
+package com.easycoding.learningroomrelations.presentation.songs.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,8 @@ import com.easycoding.learningroomrelations.business.models.Song
 class SongsAdapter(
     private val listener: SongClickListener? = null
 ): ListAdapter<Song, SongViewHolder>(UserDiffUtilItemCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder = SongViewHolder.from(parent, listener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder =
+        SongViewHolder.from(parent, listener)
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) = holder.bind(getItem(position))
 }
 

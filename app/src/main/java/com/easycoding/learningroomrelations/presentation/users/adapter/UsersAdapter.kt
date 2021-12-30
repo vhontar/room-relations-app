@@ -1,4 +1,4 @@
-package com.easycoding.learningroomrelations.presentation.users
+package com.easycoding.learningroomrelations.presentation.users.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,8 @@ import com.easycoding.learningroomrelations.business.models.User
 class UsersAdapter(
     private val listener: UserClickListener? = null
 ): ListAdapter<User, UserViewHolder>(UserDiffUtilItemCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder = UserViewHolder.from(parent, listener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder =
+        UserViewHolder.from(parent, listener)
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) = holder.bind(getItem(position))
 }
 

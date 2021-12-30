@@ -10,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import com.easycoding.learningroomrelations.R
 import com.easycoding.learningroomrelations.databinding.ActivityMusicLibrariesBinding
 import com.easycoding.learningroomrelations.business.models.MusicLibrary
+import com.easycoding.learningroomrelations.presentation.musiclibraries.adapter.MusicLibrariesAdapter
+import com.easycoding.learningroomrelations.presentation.musiclibraries.adapter.MusicLibraryClickListener
 import com.easycoding.learningroomrelations.presentation.musiclibrarydetails.MusicLibraryDetailsActivity
 import com.easycoding.learningroomrelations.presentation.songs.SongsActivity
 import dagger.hilt.android.AndroidEntryPoint

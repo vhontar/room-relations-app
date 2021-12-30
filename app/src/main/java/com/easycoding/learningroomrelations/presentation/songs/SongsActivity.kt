@@ -11,6 +11,8 @@ import com.easycoding.learningroomrelations.R
 import com.easycoding.learningroomrelations.databinding.ActivitySongsBinding
 import com.easycoding.learningroomrelations.business.models.Song
 import com.easycoding.learningroomrelations.presentation.songdetails.SongDetailsActivity
+import com.easycoding.learningroomrelations.presentation.songs.adapter.SongClickListener
+import com.easycoding.learningroomrelations.presentation.songs.adapter.SongsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

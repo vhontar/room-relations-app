@@ -9,7 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import com.easycoding.learningroomrelations.R
 import com.easycoding.learningroomrelations.databinding.ActivitySongDetailsBinding
-import com.easycoding.learningroomrelations.presentation.musiclibraries.MusicLibrariesAdapter
+import com.easycoding.learningroomrelations.presentation.musiclibraries.adapter.MusicLibrariesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
