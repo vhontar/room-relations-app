@@ -10,20 +10,22 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.LearningRoomRelations">
-        <activity android:name=".ui.comparetwousers.CompareTwoUsersActivity">
+        <activity android:name=".presentation.selectsong.SelectSongActivity">
         </activity>
-        <activity android:name=".ui.songdetails.SongDetailsActivity">
+        <activity android:name=".presentation.comparetwousers.CompareTwoUsersActivity">
         </activity>
-        <activity android:name=".ui.musiclibrarydetails.MusicLibraryDetailsActivity">
+        <activity android:name=".presentation.songdetails.SongDetailsActivity">
         </activity>
-        <activity android:name=".ui.songs.SongsActivity">
+        <activity android:name=".presentation.musiclibrarydetails.MusicLibraryDetailsActivity">
         </activity>
-        <activity android:name=".ui.musiclibraries.MusicLibrariesActivity">
+        <activity android:name=".presentation.songs.SongsActivity">
         </activity>
-        <activity android:name=".ui.users.UsersActivity">
+        <activity android:name=".presentation.musiclibraries.MusicLibrariesActivity">
+        </activity>
+        <activity android:name=".presentation.users.UsersActivity">
         </activity>
         <activity
-                android:name=".MainActivity"
+                android:name=".presentation.MainActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

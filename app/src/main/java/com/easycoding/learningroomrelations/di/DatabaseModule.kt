@@ -2,10 +2,9 @@ package com.easycoding.learningroomrelations.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.easycoding.learningroomrelations.database.APP_DATABASE_NAME
-import com.easycoding.learningroomrelations.database.AppDatabase
-import com.easycoding.learningroomrelations.database.dao.*
+import com.easycoding.learningroomrelations.datasource.APP_DATABASE_NAME
+import com.easycoding.learningroomrelations.datasource.AppDatabase
+import com.easycoding.learningroomrelations.datasource.local.dao.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
