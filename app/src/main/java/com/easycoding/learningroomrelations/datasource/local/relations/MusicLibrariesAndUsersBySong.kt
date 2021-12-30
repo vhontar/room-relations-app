@@ -12,7 +12,7 @@ data class MusicLibrariesAndUsersBySong(
     @Relation(
         parentColumn = "songId",
         entityColumn = "musicLibraryId",
-        entity = MusicLibrary::class, // super important
+        entity = MusicLibrary::class, // super important if you use other relation class
         associateBy = Junction(SongMusicLibraryCrossRef::class)
     )
     val usersByMusicLibrary: List<UsersByMusicLibrary>
