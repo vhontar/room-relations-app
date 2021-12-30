@@ -3,7 +3,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable name="item" type="com.easycoding.learningroomrelations.models.MusicLibrary"/>
+        <variable name="item" type="com.easycoding.learningroomrelations.business.models.MusicLibrary"/>
         <variable name="hideButtons" type="Boolean"/>
     </data>
 
