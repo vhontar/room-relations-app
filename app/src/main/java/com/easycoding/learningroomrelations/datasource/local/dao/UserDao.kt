@@ -2,7 +2,8 @@ package com.easycoding.learningroomrelations.datasource.local.dao
 
 import androidx.room.*
 import com.easycoding.learningroomrelations.business.models.User
-import com.easycoding.learningroomrelations.business.models.UserWithMusicLibraries
+import com.easycoding.learningroomrelations.datasource.local.relations.MusicLibrariesAndSongsByTwoUsers
+import com.easycoding.learningroomrelations.datasource.local.relations.MusicLibrariesByUser
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,12 +13,12 @@ interface UserDao: BaseDao<User> {
 
     @Transaction
     @Query("SELECT * FROM User WHERE userId = :userId")
-    fun getUserMusicLibraries(userId: Int): Flow<UserWithMusicLibraries>
+    fun getUserMusicLibraries(userId: Int): Flow<MusicLibrariesByUser>
 
     @Transaction
     @Query("SELECT * FROM User WHERE userId IN (:firstUserId, :secondUserId)")
-    suspend fun getSimilarUsersMusicLibraries(
+    suspend fun getMusicLibrariesAndSongsByTwoUsers(
         firstUserId: Int,
         secondUserId: Int
-    ): List<UserWithMusicLibraries>?
+    ): List<MusicLibrariesAndSongsByTwoUsers>?
 }

@@ -1,11 +1,11 @@
 package com.easycoding.learningroomrelations.presentation.comparetwousers
 
 import androidx.lifecycle.*
-import com.easycoding.learningroomrelations.datasource.local.dao.MusicLibraryDao
 import com.easycoding.learningroomrelations.datasource.local.dao.UserDao
 import com.easycoding.learningroomrelations.business.models.MusicLibrary
 import com.easycoding.learningroomrelations.business.models.Song
 import com.easycoding.learningroomrelations.business.models.User
+import com.easycoding.learningroomrelations.datasource.local.dao.MusicLibraryDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,8 +20,11 @@ class CompareTwoUsersViewModel @Inject constructor(
     private val _similarMusicLibraries = MutableLiveData<List<MusicLibrary>>()
     val similarMusicLibraries: LiveData<List<MusicLibrary>> = _similarMusicLibraries
 
-    private val _similarSongs = MutableLiveData<List<Song>>()
-    val similarSongs: LiveData<List<Song>> = _similarSongs
+    private val _similarSongsFromUsersAllMusicLibraries = MutableLiveData<List<Song>>()
+    val similarSongsFromUsersAllMusicLibraries: LiveData<List<Song>> = _similarSongsFromUsersAllMusicLibraries
+
+    private val _similarSongsFromUsersSimilarMusicLibraries = MutableLiveData<List<Song>>()
+    val similarSongsFromUsersSimilarMusicLibraries: LiveData<List<Song>> = _similarSongsFromUsersSimilarMusicLibraries
 
     private var firstSelectedUser: User? = null
     private var secondSelectedUser: User? = null
@@ -42,26 +45,39 @@ class CompareTwoUsersViewModel @Inject constructor(
     }
 
     private fun loadSimilarPlaylistsAndSongs() = viewModelScope.launch {
-        val similarMusicLibraries = userDao.getSimilarUsersMusicLibraries(
+        val musicLibrariesAndSongs = userDao.getMusicLibrariesAndSongsByTwoUsers(
             firstSelectedUser!!.userId,
             secondSelectedUser!!.userId
         )
 
-        val allPlaylists = similarMusicLibraries?.flatMap { it.musicLibraries } ?: emptyList()
-        _similarMusicLibraries.value = allPlaylists
+        val allMusicLibraries = musicLibrariesAndSongs?.flatMap {
+            it.songsByMusicLibraries.map { musicLibrary ->
+                musicLibrary.musicLibrary.songs = musicLibrary.songs
+                musicLibrary.musicLibrary
+            }
+        } ?: emptyList()
+        val allSongs = musicLibrariesAndSongs?.flatMap {
+            it.songsByMusicLibraries.flatMap { library -> library.songs }
+        } ?: emptyList()
+
+        val similarMusicLibraries = allMusicLibraries
             .groupBy { it.musicLibraryId }
             .filter { it.value.size > 1 }
             .flatMap { it.value }
             .distinct()
             .sortedBy { it.musicLibraryId }
+        _similarMusicLibraries.value = similarMusicLibraries
 
-        val musicLibrariesIds = allPlaylists.map { it.musicLibraryId }
-        val allSongs = musicLibraryDao.getMusicLibrariesSongs(musicLibrariesIds)?.flatMap { it.songs } ?: emptyList()
-        _similarSongs.value = allSongs
+        _similarSongsFromUsersAllMusicLibraries.value = allSongs
             .groupBy { it.songId }
             .filter { it.value.size > 1 }
             .flatMap { it.value }
             .distinct()
             .sortedBy { it.songId }
+
+        val similarSongs = similarMusicLibraries
+            .flatMap { it.songs ?: emptyList() }
+            .sortedBy { it.songId }
+        _similarSongsFromUsersSimilarMusicLibraries.value = similarSongs
     }
 }

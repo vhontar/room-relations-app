@@ -18,19 +18,22 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CompareTwoUsersActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCompareTwoUsersBinding
+    private var _binding: ActivityCompareTwoUsersBinding? = null
+    private val binding: ActivityCompareTwoUsersBinding
+        get() = _binding!!
     private val viewModel: CompareTwoUsersViewModel by viewModels()
 
     private var spinnerAdapter1: ArrayAdapter<User>? = null
     private var spinnerAdapter2: ArrayAdapter<User>? = null
 
     private var musicLibraryAdapter: MusicLibrariesAdapter? = null
-    private var songsAdapter: SongsAdapter? = null
+    private var songsAllMusicLibrariesAdapter: SongsAdapter? = null
+    private var songsSimilarMusicLibrariesAdapter: SongsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_compare_two_users)
+        _binding = DataBindingUtil.setContentView(this, R.layout.activity_compare_two_users)
         binding.apply {
             lifecycleOwner = this@CompareTwoUsersActivity
             viewmodel = viewModel
@@ -56,8 +59,11 @@ class CompareTwoUsersActivity : AppCompatActivity() {
             musicLibraryAdapter = MusicLibrariesAdapter(hideButtons = true)
             rvMusicLibraries.adapter = musicLibraryAdapter
 
-            songsAdapter = SongsAdapter()
-            rvSongs.adapter = songsAdapter
+            songsAllMusicLibrariesAdapter = SongsAdapter()
+            rvSimilarSongsAllPlaylists.adapter = songsAllMusicLibrariesAdapter
+
+            songsSimilarMusicLibrariesAdapter = SongsAdapter()
+            rvSimilarSongsSimilarPlaylists.adapter = songsSimilarMusicLibrariesAdapter
         }
 
         viewModel.apply {
@@ -70,10 +76,19 @@ class CompareTwoUsersActivity : AppCompatActivity() {
                 musicLibraryAdapter?.submitList(it)
             }
 
-            similarSongs.observe(this@CompareTwoUsersActivity) {
-                songsAdapter?.submitList(it)
+            similarSongsFromUsersAllMusicLibraries.observe(this@CompareTwoUsersActivity) {
+                songsAllMusicLibrariesAdapter?.submitList(it)
+            }
+
+            similarSongsFromUsersSimilarMusicLibraries.observe(this@CompareTwoUsersActivity) {
+                songsSimilarMusicLibrariesAdapter?.submitList(it)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     companion object {

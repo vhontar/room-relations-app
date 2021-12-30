@@ -2,7 +2,8 @@ package com.easycoding.learningroomrelations.datasource.local.dao
 
 import androidx.room.*
 import com.easycoding.learningroomrelations.business.models.Song
-import com.easycoding.learningroomrelations.business.models.SongMusicLibraries
+import com.easycoding.learningroomrelations.datasource.local.relations.MusicLibrariesAndUsersBySong
+import com.easycoding.learningroomrelations.datasource.local.relations.MusicLibrariesBySong
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,5 +13,9 @@ interface SongDao: BaseDao<Song> {
 
     @Transaction
     @Query("SELECT * FROM Song WHERE songId = :songId")
-    fun getSongMusicLibraries(songId: Int): Flow<SongMusicLibraries>
+    fun getSongMusicLibraries(songId: Int): Flow<MusicLibrariesBySong>
+
+    @Transaction
+    @Query("SELECT * FROM Song WHERE songId = :songId")
+    suspend fun getMusicLibrariesAndUsersBySong(songId: Int): MusicLibrariesAndUsersBySong?
 }

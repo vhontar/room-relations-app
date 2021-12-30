@@ -36,7 +36,8 @@ class SelectSongActivity : AppCompatActivity() {
             spSong.adapter = spinnerSongAdapter
             spSong.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    viewModel.selectSong(p0?.selectedItem as Song?)
+                    // load new data
+                    viewModel.loadMusicLibrariesAndUsersBySong(p0?.selectedItem as Song?)
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) { }
             }
@@ -51,6 +52,17 @@ class SelectSongActivity : AppCompatActivity() {
         viewModel.apply {
             songs.observe(this@SelectSongActivity) {
                 spinnerSongAdapter?.addAll(it)
+
+                // load first variant by default
+                loadMusicLibrariesAndUsersBySong(it[0])
+            }
+
+            musicLibraries.observe(this@SelectSongActivity) {
+                musicLibrariesAdapter?.submitList(it)
+            }
+
+            users.observe(this@SelectSongActivity) {
+                usersAdapter?.submitList(it)
             }
         }
     }
