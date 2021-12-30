@@ -1,19 +1,17 @@
 package com.easycoding.learningroomrelations.presentation.comparetwousers
 
 import androidx.lifecycle.*
-import com.easycoding.learningroomrelations.datasource.local.dao.UserDao
 import com.easycoding.learningroomrelations.business.models.MusicLibrary
 import com.easycoding.learningroomrelations.business.models.Song
 import com.easycoding.learningroomrelations.business.models.User
-import com.easycoding.learningroomrelations.datasource.local.dao.MusicLibraryDao
+import com.easycoding.learningroomrelations.datasource.local.dao.UserDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CompareTwoUsersViewModel @Inject constructor(
-    private val userDao: UserDao,
-    private val musicLibraryDao: MusicLibraryDao
+    private val userDao: UserDao
 ): ViewModel() {
     val users = userDao.getAllUsers().asLiveData()
 
